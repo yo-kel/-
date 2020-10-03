@@ -25,3 +25,7 @@ struct _client {
 
 SOCKET serverSocket;
 _client* clinet[ClientMax];
+
+void Disconnect(_client* client);
+int Send(_client* client, char* buffer, int sz);
+int Recv(_client* client, char* buffer, int sz);

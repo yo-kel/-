@@ -1,13 +1,53 @@
 #include "server.h"
 
-int AcceptCon(_client* client) {
+int Accept(_client* client) {
 	client->iResult = sizeof(sockaddr);
 	client->sock = accept(serverSocket, (sockaddr*)&client->addr, &client->iResult);
 	if (client->sock != 0 && client->sock != SOCKET_ERROR) {
 		client->con = true;
 		FD_ZERO(&client->set);
 		FD_SET(client->sock, &client->set);
+		return true;
 	}
+	return false;
+}
+
+void AcceptCon() {
+	for (int i = 0;i < ClientMax;i++) {
+		if (client[i]->con)continue;
+		if (Accept(client[i])) {
+			std::cout << "new client connected" << std::endl;
+		}
+		else break;
+	}
+}
+
+void Disconnect(_client* client) {
+	if (client->sock)closesocket(client->sock);
+	client->con = 0;
+	client->iResult = -1;
+	ZeroMemory(&client->clientInfo, sizeof(client->clientInfo));
+}
+
+int Recv(_client* client, char* buffer, int sz) {
+	if (FD_ISSET(client->sock, &client->set)) {
+		client->iResult = recv(client->sock, buffer, sz, 0);
+		if (client->iResult == 0) {
+			Disconnect(client);
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
+
+int Send(_client* client, char* buffer, int sz) {
+	client->iResult = send(client->sock, buffer, sz, 0);
+	if (client->iResult == 0 || client->iResult == SOCKET_ERROR) {
+		Disconnect(client);
+		return false;
+	}
+	return true;
 }
 
 int ServerInit() {
@@ -41,6 +81,7 @@ int ServerInit() {
 
 	int bReuseaddr = true;
 	setsockopt(serverSocket,SOL_SOCKET, SO_REUSEADDR,(char*) &bReuseaddr, sizeof(bReuseaddr));
+	//SO_REUSEADDR：使被释放的端口可以被立即使用
 
 	iResult = bind(serverSocket, &addr, sizeof(addr));
 	if (iResult != 0) {
@@ -55,6 +96,7 @@ int ServerInit() {
 
 	u_long mode = 1;
 	ioctlsocket(serverSocket, FIONBIO, &mode);
+	//mode=1:非阻塞
 
 	return 0;
 }
