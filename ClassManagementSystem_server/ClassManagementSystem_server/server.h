@@ -4,14 +4,17 @@
 #include <WS2tcpip.h>
 #include <stdio.h>
 #include <iostream>
+#include <chrono>
 
 #pragma comment(lib,"Ws2_32.lib")
 
 #define ServerPort 6666
 #define ClientMax 105
 
-struct ClientInfo {
+using namespace std::chrono;
 
+struct ClientInfo {
+	milliseconds conTime;
 };
 
 struct _client {
@@ -24,7 +27,7 @@ struct _client {
 };
 
 SOCKET serverSocket;
-_client* clinet[ClientMax];
+_client* client[ClientMax];
 
 void Disconnect(_client* client);
 int Send(_client* client, char* buffer, int sz);

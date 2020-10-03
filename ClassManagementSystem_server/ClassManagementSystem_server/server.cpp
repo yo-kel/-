@@ -7,6 +7,7 @@ int Accept(_client* client) {
 		client->con = true;
 		FD_ZERO(&client->set);
 		FD_SET(client->sock, &client->set);
+		client->clientInfo.conTime=duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 		return true;
 	}
 	return false;
@@ -29,6 +30,7 @@ void Disconnect(_client* client) {
 	ZeroMemory(&client->clientInfo, sizeof(client->clientInfo));
 }
 
+//send,recv应该在断开连接时结束对应线程
 int Recv(_client* client, char* buffer, int sz) {
 	if (FD_ISSET(client->sock, &client->set)) {
 		client->iResult = recv(client->sock, buffer, sz, 0);
@@ -104,7 +106,7 @@ int ServerInit() {
 int main() {
 	if (!ServerInit())return 0;
 	while (1) {
-		
+		AcceptCon();
 
 
 		Sleep(500);
