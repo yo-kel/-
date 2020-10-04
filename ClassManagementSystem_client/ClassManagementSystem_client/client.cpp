@@ -1,44 +1,70 @@
 #include "client.h"
 
-int Accept(_server* server) {
-	server->iResult = sizeof(sockaddr);
-	server->sock = accept(clientSocket, (sockaddr*)&server->addr, &server->iResult);
-	if (server->sock != 0 && server->sock != SOCKET_ERROR) {
-		server->con = true;
-		FD_ZERO(&server->set);
-		FD_SET(server->sock, &server->set);
-		server->serverInfo.conTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-		return true;
+struct ServerInfo {
+	milliseconds conTime;
+};
+
+struct _server {
+	bool con;
+	sockaddr_in addr;
+	SOCKET sock;
+	fd_set set;
+	int iResult;
+	ServerInfo serverInfo;
+};
+
+
+int ClientInit() {
+	WSADATA wsaData;
+	int iResult;
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		std::cout << "WSAStartup failed " << iResult << std::endl;
+		return -1;
 	}
-	return false;
-}
 
+	sockaddr_in ser;
+	sockaddr addr;
+	ser.sin_family = AF_INET;
+	ser.sin_port = htons(ClientPort);
+	ser.sin_addr.s_addr = inet_addr(ServerAddress);
+	memcpy(&addr, &ser, sizeof(SOCKADDR_IN));
 
-void Disconnect(_server* server) {
-	if (server->sock)closesocket(server->sock);
-	server->con = 0;
-	server->iResult = -1;
-	ZeroMemory(&server->serverInfo, sizeof(server->serverInfo));
-}
-
-
-int Recv(_server* server, char* buffer, int sz) {
-	if (FD_ISSET(server->sock, &server->set)) {
-		server->iResult = recv(server->sock, buffer, sz, 0);
-		if (server->iResult == 0) {
-			Disconnect(server);
-			return false;
-		}
-		return true;
+	clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (clientSocket == INVALID_SOCKET) {
+		std::cout << "invalid socket" << std::endl;
+		return -1;
 	}
-	return false;
-}
-
-int Send(_server* server, char* buffer, int sz) {
-	server->iResult = send(server->sock, buffer, sz, 0);
-	if (server->iResult == 0 || server->iResult == SOCKET_ERROR) {
-		Disconnect(server);
-		return false;
+	else if (clientSocket == SOCKET_ERROR) {
+		std::cout << "socket error" << std::endl;
+		return -1;
 	}
-	return true;
+	else {
+		std::cout << "socket established" << std::endl;
+	}
+
+	iResult = connect(clientSocket, &addr, sizeof(addr));
+	if (iResult==SOCKET_ERROR){
+		std::cout << "SERVER UNAVAILABLE" << std::endl;
+		return -1;
+	}
+	else {
+		std::cout << "Connected to Server: " << ServerAddress << std::endl;
+		memcpy(&ser, &addr, sizeof(SOCKADDR));
+	}
+	if (clientSocket == INVALID_SOCKET) {
+		std::cout << "wrong" << std::endl;
+	}
+}
+int main() {
+	ClientInit();
+	Data data = Data_login("UU","123","1r2c");
+	std::string dataSerial;
+	DataSerialize(data,dataSerial);
+	std::cout << dataSerial << std::endl;
+	//Data newdata;
+	Data_login newdata("1231", "1231", "1231");
+	DataDeserialize(dataSerial, newdata);
+	std::cout << newdata.position << std::endl;
+	while (1);
 }

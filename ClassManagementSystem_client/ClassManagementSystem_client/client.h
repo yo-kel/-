@@ -1,13 +1,7 @@
 #pragma once
-#include <stdio.h>
-#include <winsock2.h>
-#include <WS2tcpip.h>
-#include <stdio.h>
-#include <iostream>
-#include <chrono>
 
-#pragma comment(lib,"Ws2_32.lib")
-using namespace std::chrono;
+#include "global.h"
+#include "data.h"
 
 
 #define ClientPort 6666
@@ -17,16 +11,3 @@ using namespace std::chrono;
 char* buffer[BufferMax];
 
 SOCKET clientSocket;
-
-struct ServerInfo {
-	milliseconds conTime;
-};
-
-struct _server {
-	bool con;
-	sockaddr_in addr;
-	SOCKET sock;
-	fd_set set;
-	int iResult;
-	ServerInfo serverInfo;
-};

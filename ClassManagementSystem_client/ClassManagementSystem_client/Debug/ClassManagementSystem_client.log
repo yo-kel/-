@@ -1,0 +1,5 @@
+﻿  client.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.cpp(30,24): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.cpp(58): warning C4715: 'ClientInit': not all control paths return a value
+  ClassManagementSystem_client.vcxproj -> C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\Debug\ClassManagementSystem_client.exe

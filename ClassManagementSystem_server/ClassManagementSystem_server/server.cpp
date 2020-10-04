@@ -1,13 +1,20 @@
 #include "server.h"
 
+
+
+
 int Accept(_client* client) {
 	client->iResult = sizeof(sockaddr);
+	//std::cout << "asdasdss" << client->sock << std::endl;
 	client->sock = accept(serverSocket, (sockaddr*)&client->addr, &client->iResult);
+	//std::cout << "asdasdss" << client->sock << std::endl;
 	if (client->sock != 0 && client->sock != SOCKET_ERROR) {
 		client->con = true;
 		FD_ZERO(&client->set);
 		FD_SET(client->sock, &client->set);
-		client->clientInfo.conTime=duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+		client->clientInfo.conTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+		std::thread t(ClientController, client);
+		t.detach();
 		return true;
 	}
 	return false;
@@ -16,7 +23,8 @@ int Accept(_client* client) {
 void AcceptCon() {
 	for (int i = 0;i < ClientMax;i++) {
 		if (client[i]->con)continue;
-		if (Accept(client[i])) {
+		int x = Accept(client[i]);
+		if (x) {
 			std::cout << "new client connected" << std::endl;
 		}
 		else break;
@@ -28,28 +36,6 @@ void Disconnect(_client* client) {
 	client->con = 0;
 	client->iResult = -1;
 	ZeroMemory(&client->clientInfo, sizeof(client->clientInfo));
-}
-
-//send,recv应该在断开连接时结束对应线程
-int Recv(_client* client, char* buffer, int sz) {
-	if (FD_ISSET(client->sock, &client->set)) {
-		client->iResult = recv(client->sock, buffer, sz, 0);
-		if (client->iResult == 0) {
-			Disconnect(client);
-			return false;
-		}
-		return true;
-	}
-	return false;
-}
-
-int Send(_client* client, char* buffer, int sz) {
-	client->iResult = send(client->sock, buffer, sz, 0);
-	if (client->iResult == 0 || client->iResult == SOCKET_ERROR) {
-		Disconnect(client);
-		return false;
-	}
-	return true;
 }
 
 int ServerInit() {
@@ -103,13 +89,21 @@ int ServerInit() {
 	return 0;
 }
 
+void DataInit() {
+	for (int i = 0;i < ClientMax;i++) {
+		client[i] = new _client;
+		ZeroMemory(client[i], sizeof(*(client[i])));
+		//std::cout << client[i]->sock << std::endl;
+	}
+}
+
 int main() {
-	if (!ServerInit())return 0;
+	DataInit();
+	if (ServerInit())return 0;
+	
 	while (1) {
 		AcceptCon();
-
-
-		Sleep(500);
+		Sleep(1000);
 	}
 	return 0;
 }
