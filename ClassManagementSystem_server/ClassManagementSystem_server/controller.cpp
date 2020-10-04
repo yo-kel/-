@@ -3,16 +3,38 @@
 SOCKET serverSocket;
 _client* client[ClientMax];
 
+char buff[500];
+
 void ProcessClientRequest(_client* client) {
-	
+	client->iResult = Recv(client, buff, 500);
+	if (!client->iResult)return;
+	std::string rawData(buff);
+
+	Data data;
+	data = DataDeserialize(rawData);
+	switch (data.payload.which()) {
+	case Data::Login:
+		Data_login data_login;
+		data_login = boost::get<Data_login>(data.payload);
+		ClientLogin(data_login);
+		break;
+	}
+	//std::cout << buff << std::endl;
+}
+
+
+void ClientLogin(Data_login data) {
+	puts("ClientLogin");
+
 }
 
 void ClientController(_client* client) {
-	while (1) {
+	while (client->con) {
 		ProcessClientRequest(client);
-		Sleep(1000);
+		//Sleep(1000);
 	}
 }
+
 
 //send,recv应该在断开连接时结束对应线程
 int Recv(_client* client, char* buffer, int sz) {

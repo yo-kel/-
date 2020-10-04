@@ -82,8 +82,8 @@ int ServerInit() {
 
 	iResult = listen(serverSocket, 10);
 
-	u_long mode = 1;
-	ioctlsocket(serverSocket, FIONBIO, &mode);
+	//u_long mode = 1;
+	//ioctlsocket(serverSocket, FIONBIO, &mode);
 	//mode=1:非阻塞
 
 	return 0;

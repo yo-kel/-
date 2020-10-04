@@ -2,57 +2,26 @@
 #ifndef dataH
 #define dataH
 
+#include <boost/serialization/variant.hpp>
 #include "global.h"
+
 
 
 #define bufferSize 5000
 
-class DataBytes {
-public:
-	int type;
-	std::string buf;
-private:
-	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version) {
-		ar& type;
-		ar& buf;
-	}
-	Data BytesToData() {
-		switch (type) {
-		case Data::Login:
 
-		}
-	}
-};
-
-class Data {
-public:
-	static const int Login = 1;
-	int type;
-	DataBytes DataToBytes() {
-
-	}
-private:
-	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version){
-		ar& type;
-	}
-};
-
-
-class Data_login :public Data {
+class Data_login {
 public:
 	std::string sid;
 	std::string pwd;
 	std::string position;
 	Data_login(std::string sid, std::string pwd, std::string position);
+	Data_login();
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar, const unsigned int version) {
-		ar& boost::serialization::base_object<Data>(*this);
+		//ar& boost::serialization::base_object<Data>(*this);
 		ar& sid;
 		ar& pwd;
 		ar& position;
@@ -61,9 +30,26 @@ private:
 
 
 
-template <typename T>
-void DataSerialize(T data, std::string& res);
 
-template <typename T>
-void DataDeserialize(std::string string, T& data);
+typedef boost::variant<Data_login> DataT;
+class Data {
+public:
+	static const int Login = 0;
+	DataT payload;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		ar& payload;
+	}
+};
+
+
+
+
+
+std::string DataSerialize(Data data);
+
+Data DataDeserialize(std::string string);
+void HandleRequest(std::string string);
 #endif // !dataH

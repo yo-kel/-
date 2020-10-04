@@ -58,13 +58,20 @@ int ClientInit() {
 }
 int main() {
 	ClientInit();
-	Data data = Data_login("UU","123","1r2c");
+	Data data;
+	data.payload= Data_login("UU", "123", "1r2c");
 	std::string dataSerial;
-	DataSerialize(data,dataSerial);
-	std::cout << dataSerial << std::endl;
+	dataSerial = DataSerialize(data);
+
+	int n = dataSerial.length();
+	char buff[500];
+	strcpy(buff, dataSerial.c_str());
+	//std::cout << dataSerial << std::endl;
+	send(clientSocket, buff, n + 1, 0);
+	send(clientSocket, buff, n + 1, 0);
 	//Data newdata;
-	Data_login newdata("1231", "1231", "1231");
-	DataDeserialize(dataSerial, newdata);
-	std::cout << newdata.position << std::endl;
+	//puts("------");
+	//HandleRequest(dataSerial);
+	//std::cout << newdata.position << std::endl;
 	while (1);
 }
