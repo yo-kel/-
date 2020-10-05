@@ -1,3 +1,10 @@
-﻿  controller.cpp
-C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\controller.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+﻿  mysql.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(184,25): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(208,25): warning C4018: '<=': signed/unsigned mismatch
+  server.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\server.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  Generating Code...
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(32): warning C4715: 'FindStudentPwd': not all control paths return a value
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(121): warning C4715: 'MysqlInit': not all control paths return a value
   ClassManagementSystem_server.vcxproj -> C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\Debug\ClassManagementSystem_server.exe

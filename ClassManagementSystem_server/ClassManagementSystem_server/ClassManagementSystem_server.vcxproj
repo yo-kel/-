@@ -88,12 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\boost_1_74_0\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\mysqlx;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\mysql;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\jdbc;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\boost_1_74_0\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\boost_1_74_0\boost_1_74_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\lib;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\lib\vs14;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\boost_1_74_0\boost_1_74_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mysqlcppconn.lib;mysqlcppconn8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,11 +145,14 @@
     <ClInclude Include="controller.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="mysql.h" />
     <ClInclude Include="server.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="mysql.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

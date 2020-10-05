@@ -8,32 +8,11 @@
 
 #include "global.h"
 #include "data.h"
+#include "mysql.h"
+#include "server.h"
 
 #pragma comment(lib,"Ws2_32.lib")
 
-
-#define ServerPort 6666
-#define ClientMax 105
-
-struct ClientInfo {
-	milliseconds conTime;
-	int authentication;
-};
-
-struct _client {
-	bool con;
-	sockaddr_in addr;
-	SOCKET sock;
-	fd_set set;
-	int iResult;
-	ClientInfo clientInfo;
-};
-
-
-
-
-extern SOCKET serverSocket;
-extern _client* client[ClientMax];
 
 
 
@@ -42,7 +21,8 @@ void ClientController(_client* client);
 int Send(_client* client, char* buffer, int sz);
 int Recv(_client* client, char* buffer, int sz);
 void Disconnect(_client* client);
-void ClientLogin(Data_login data);
+void ClientLogin(Data_login data,_client* client);
+void LogOutNoti(_client* client);
 
 
 

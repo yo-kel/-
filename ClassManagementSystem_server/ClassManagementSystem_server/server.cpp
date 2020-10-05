@@ -3,42 +3,21 @@
 
 
 
-int Accept(_client* client) {
-	client->iResult = sizeof(sockaddr);
-	//std::cout << "asdasdss" << client->sock << std::endl;
-	client->sock = accept(serverSocket, (sockaddr*)&client->addr, &client->iResult);
-	//std::cout << "asdasdss" << client->sock << std::endl;
-	if (client->sock != 0 && client->sock != SOCKET_ERROR) {
-		client->con = true;
-		FD_ZERO(&client->set);
-		FD_SET(client->sock, &client->set);
-		client->clientInfo.conTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-		std::thread t(ClientController, client);
-		t.detach();
-		return true;
-	}
-	return false;
-}
 
-void AcceptCon() {
-	for (int i = 0;i < ClientMax;i++) {
-		if (client[i]->con)continue;
-		int x = Accept(client[i]);
-		if (x) {
-			std::cout << "new client connected" << std::endl;
-		}
-		else break;
-	}
-}
 
-void Disconnect(_client* client) {
-	if (client->sock)closesocket(client->sock);
-	client->con = 0;
-	client->iResult = -1;
-	ZeroMemory(&client->clientInfo, sizeof(client->clientInfo));
-}
+
 
 int ServerInit() {
+
+	for (int i = 0;i < ClientMax;i++) {
+		client[i] = new _client;
+		ZeroMemory(client[i], sizeof(*(client[i])));
+		client[i]->clientInfo = new ClientInfo;
+		ZeroMemory(client[i]->clientInfo, sizeof((*client[i]).clientInfo));
+		client[i]->clientInfo->authentication = 0;
+		//std::cout << client[i]->clientInfo->authentication << std::endl;
+	}
+
 	WSADATA wsaData;
 	int iResult;
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -89,21 +68,3 @@ int ServerInit() {
 	return 0;
 }
 
-void DataInit() {
-	for (int i = 0;i < ClientMax;i++) {
-		client[i] = new _client;
-		ZeroMemory(client[i], sizeof(*(client[i])));
-		//std::cout << client[i]->sock << std::endl;
-	}
-}
-
-int main() {
-	DataInit();
-	if (ServerInit())return 0;
-	
-	while (1) {
-		AcceptCon();
-		Sleep(1000);
-	}
-	return 0;
-}

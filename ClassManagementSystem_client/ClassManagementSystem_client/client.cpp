@@ -1,7 +1,9 @@
 #include "client.h"
 
+SOCKET clientSocket;
+
 struct ServerInfo {
-	milliseconds conTime;
+	LL conTime;
 };
 
 struct _server {
@@ -55,23 +57,4 @@ int ClientInit() {
 	if (clientSocket == INVALID_SOCKET) {
 		std::cout << "wrong" << std::endl;
 	}
-}
-int main() {
-	ClientInit();
-	Data data;
-	data.payload= Data_login("UU", "123", "1r2c");
-	std::string dataSerial;
-	dataSerial = DataSerialize(data);
-
-	int n = dataSerial.length();
-	char buff[500];
-	strcpy(buff, dataSerial.c_str());
-	//std::cout << dataSerial << std::endl;
-	send(clientSocket, buff, n + 1, 0);
-	send(clientSocket, buff, n + 1, 0);
-	//Data newdata;
-	//puts("------");
-	//HandleRequest(dataSerial);
-	//std::cout << newdata.position << std::endl;
-	while (1);
 }

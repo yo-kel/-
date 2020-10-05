@@ -1,3 +1,7 @@
+#ifndef CLIENTH
+#define CLIENTH
+
+
 #pragma once
 
 #include "global.h"
@@ -8,6 +12,8 @@
 #define BufferMax 500
 #define ServerAddress "127.0.0.1"//考虑到实际使用，应可以修改
 
-char* buffer[BufferMax];
 
-SOCKET clientSocket;
+extern SOCKET clientSocket;
+
+int ClientInit();
+#endif // !

@@ -1,6 +1,8 @@
-﻿  client.cpp
+﻿  controller.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.cpp(30,24): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.cpp(68,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.cpp(58): warning C4715: 'ClientInit': not all control paths return a value
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.cpp(9,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.cpp(32,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   ClassManagementSystem_client.vcxproj -> C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\Debug\ClassManagementSystem_client.exe
