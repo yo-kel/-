@@ -20,12 +20,14 @@
 using namespace std::chrono;
 
 extern std::string classroomName;//应该从配置文件中读取
+extern std::string subjectName;
+extern std::string className;
 
 #define ServerPort 6666
 #define ClientMax 105
 
 struct ClientInfo {
-	milliseconds loginTime;
+	LL loginTime;
 	int authentication;
 	std::string sid;
 	std::string classroom;
@@ -35,7 +37,7 @@ struct ClientInfo {
 
 struct _client {
 	bool con;
-	milliseconds conTime;
+	LL conTime;
 	sockaddr_in addr;
 	SOCKET sock;
 	fd_set set;
@@ -45,3 +47,5 @@ struct _client {
 
 extern SOCKET serverSocket;
 extern _client* client[ClientMax];
+
+LL TimeStamp();
