@@ -17,3 +17,4 @@ using namespace std::chrono;
 
 extern std::string clientPosition;
 
+extern std::string studentName;

@@ -142,17 +142,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="activity.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="mysql.h" />
+    <ClInclude Include="request.h" />
     <ClInclude Include="server.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="activity.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="mysql.cpp" />
+    <ClCompile Include="request.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

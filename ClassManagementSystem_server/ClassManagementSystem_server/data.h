@@ -45,13 +45,55 @@ private:
 	}
 };
 
+class Data_Message {
+public:
+	int status;
+	int broadcast;
+	std::string message;
+	std::string name;
+	Data_Message() {
+		status = 1;
+		broadcast = 0;
+		message = "";
+	}
+	Data_Message(int status, int broadcast, std::string message,std::string name) :
+		status(status), broadcast(broadcast), message(message),name(name) {}
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& status;//用于是否接受临时会话，目前一定接受
+		ar& broadcast;
+		ar& message;
+	}
+};
 
+class Data_Question {
+public:
+	std::string sid;
+	std::string name;
+	std::string position;
+	std::string content;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& sid;
+		ar& name;
+		ar& position;
+		ar& content;
+	}
+};
 
-
-typedef boost::variant<Data_login,Data_Student> DataT;
+typedef boost::variant<Data_login,Data_Student,Data_Question,Data_Message> DataT;
 class Data {
 public:
 	static const int Login = 0;
+	static const int Student = 1;
+	static const int Question = 2;
+	static const int Message = 3;
 	DataT payload;
 private:
 	friend class boost::serialization::access;

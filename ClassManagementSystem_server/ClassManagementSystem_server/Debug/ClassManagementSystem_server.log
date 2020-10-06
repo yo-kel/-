@@ -1,15 +1,33 @@
-﻿  mysql.cpp
+﻿  activity.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  controller.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\controller.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  data.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  mysql.cpp
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(228,25): warning C4018: '<=': signed/unsigned mismatch
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(252,25): warning C4018: '<=': signed/unsigned mismatch
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(305,19): warning C4018: '<': signed/unsigned mismatch
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(208,20): warning C4018: '<=': signed/unsigned mismatch
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(212): message : see reference to function template instantiation 'int QueryStudentCheckInOut<__int64>(std::string,std::string,std::string,__int64 &,std::string)' being compiled
+  request.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\request.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  Generating Code...
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(32): warning C4715: 'FindStudentPwd': not all control paths return a value
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(125): warning C4715: 'MysqlInit': not all control paths return a value
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(165): warning C4715: 'QueryStudentId': not all control paths return a value
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(399): warning C4715: 'InsertClass': not all control paths return a value
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(197): warning C4715: 'QueryStudentCheckInOut<int>': not all control paths return a value
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\ClassManagementSystem_server\mysql.cpp(197): warning C4715: 'QueryStudentCheckInOut<__int64>': not all control paths return a value
+     Creating library C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\Debug\ClassManagementSystem_server.lib and object C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\Debug\ClassManagementSystem_server.exp
   ClassManagementSystem_server.vcxproj -> C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_server\Debug\ClassManagementSystem_server.exe

@@ -63,6 +63,7 @@ int QueryStudent(std::string subjectId, std::string classId, std::string sid, Da
 //查询学生各项课堂情况
 
 int InsertSubject(std::string subjectId);
+//添加新课程
 
 int InsertClass(std::string subjectId, std::string classId);
 //添加新课堂
