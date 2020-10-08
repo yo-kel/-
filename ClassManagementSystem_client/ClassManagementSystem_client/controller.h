@@ -7,6 +7,7 @@
 #include "client.h"
 #include "activity.h"
 #include "request.h"
+#include "screenshot.h"
 
 char sendBuff[5000];//？效率可能过低？
 

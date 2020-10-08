@@ -6,7 +6,7 @@
 #include <boost/serialization/vector.hpp>
 #include "global.h"
 
-//æ•°æ®ç±»å‹ æ•°æ®åºåˆ—åŒ–å’Œååºåˆ—åŒ–
+//Êı¾İÀàĞÍ Êı¾İĞòÁĞ»¯ºÍ·´ĞòÁĞ»¯
 
 #define bufferSize 5000
 
@@ -24,6 +24,47 @@ private:
 		ar& attendence;
 		ar& score;
 		ar& work;
+	}
+};
+
+class Data_Ans {
+public:
+	static const int unchecked = -1;
+	static const int correct = -2;
+	static const int wrong = -3;
+	std::string title;
+	std::string type;//"choice" "blank" "short" "file"
+	std::string content;
+	int checked;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& title;
+		ar& type;
+		ar& content;
+		ar& checked;
+	}
+};
+
+class Data_Hmwk {
+public:
+	std::string title;
+	std::string type;
+	LL ddl;
+	int score;
+	std::string content;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& title;
+		ar& type;
+		ar& ddl;
+		ar& score;
+		ar& content;
 	}
 };
 
@@ -63,9 +104,10 @@ private:
 	template<class Archive>
 	void serialize(Archive& ar, const unsigned int version) {
 		//ar& boost::serialization::base_object<Data>(*this);
-		ar& status;//ç”¨äºæ˜¯å¦æ¥å—ä¸´æ—¶ä¼šè¯ï¼Œç›®å‰ä¸€å®šæ¥å—
+		ar& status;//ÓÃÓÚÊÇ·ñ½ÓÊÜÁÙÊ±»á»°£¬Ä¿Ç°Ò»¶¨½ÓÊÜ
 		ar& broadcast;
 		ar& message;
+		ar& name;
 	}
 };
 
@@ -87,13 +129,15 @@ private:
 	}
 };
 
-typedef boost::variant<Data_login,Data_Student,Data_Question,Data_Message> DataT;
+typedef boost::variant<Data_login,Data_Student,Data_Question,Data_Message,Data_Ans,Data_Hmwk> DataT;
 class Data {
 public:
 	static const int Login = 0;
 	static const int Student = 1;
 	static const int Question = 2;
 	static const int Message = 3;
+	static const int Ans = 4;
+	static const int Hmwk = 5;
 	DataT payload;
 private:
 	friend class boost::serialization::access;

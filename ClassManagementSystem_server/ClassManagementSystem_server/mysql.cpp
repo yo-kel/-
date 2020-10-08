@@ -138,7 +138,7 @@ int QueryStudentId(std::string subjectId, std::string sid,int &studentId) {
 		res = stmt->executeQuery(statement.c_str());
 		delete stmt;
 
-		puts("OK");
+		//puts("OK");
 		while (res->next()) {
 			std::string rawData = res->getString("student").c_str();
 			Data_Array<std::string> data;
@@ -242,7 +242,7 @@ int UpdateStudentCheckinOut(std::string subjectId,std::string classId, std::stri
 	if (QueryStudentId(subjectId, sid, studentId) != 0)return -1;
 	std::string table = "class";
 	
-
+	std::cout << "dsadasd " << timestamp << std::endl;
 	sql::Statement* stmt;
 	stmt = con->createStatement();
 

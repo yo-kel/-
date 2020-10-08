@@ -9,6 +9,7 @@
 
 
 extern char buff[2000];
+void HandleRequest();
 
 
 #endif // !REQUESTH

@@ -12,6 +12,7 @@
 #include "server.h"
 #include "activity.h"
 #include "request.h"
+#include "fileio.h"
 
 #pragma comment(lib,"Ws2_32.lib")
 

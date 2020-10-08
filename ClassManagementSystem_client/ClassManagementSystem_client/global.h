@@ -9,6 +9,7 @@
 #include <chrono>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <thread>
 
 #define LL long long
 
@@ -16,5 +17,8 @@
 using namespace std::chrono;
 
 extern std::string clientPosition;
-
+extern std::string sid;
 extern std::string studentName;
+extern std::string pwd;
+
+LPCWSTR ConvertStringToLpcwstr(std::string s);

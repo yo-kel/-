@@ -8,17 +8,14 @@
 #include "data.h"
 #include "mysql.h"
 #include "activity.h"
-//request 澶勭悊鏉ヨ嚜瀹㈡埛绔殑淇℃伅锛岃皟鐢ㄧ浉搴旂殑activity
+//request 处理来自客户端的信息，调用相应的activity
 
-int Send(_client* client, char* buffer, int sz);
 int Recv(_client* client, char* buffer, int sz);
-void Disconnect(_client* client);
 void ClientLogin(Data_login data, _client* client);
 void ClientQuestion(Data_Question data, _client* client);
 void ClientMessage(Data_Message data, _client* client);
-void LogOutNoti(_client* client);
-void ClientLogout_UpdateTime(LL time, std::string sid);
-void ClientLogin_UpdateTime(LL time, std::string sid);
+void ClientAns(Data_Ans data, _client* client);
+
 #endif // !REQUESTH
 
 

@@ -4,10 +4,40 @@
 #pragma once
 #include "global.h"
 #include "data.h"
-//activityåªå¤„ç†æœ¬åœ°äº‹åŠ¡å’Œå‘ç”¨æˆ·ç«¯å‘é€ä¿¡æ¯
+#include "mysql.h"
+#include "fileio.h"
+//activityÖ»´¦Àí±¾µØÊÂÎñºÍÏòÓÃ»§¶Ë·¢ËÍĞÅÏ¢
+
+int Send(_client* client, const char* buffer, int sz);
+void Disconnect(_client* client);
+void LogOutNoti(_client* client);
+
+
+void ClientLogout_UpdateTime(LL time, std::string sid);
+void ClientLogin_UpdateTime(LL time, std::string sid);
+
 void SendSessionMessage(_client* client, std::string message, int status);
+
+
+void BroadcastData(Data data);
 void BroadcastMessage(std::string name, std::string message);
+int BroadcastHmwk(std::string title);
 void SendLocalBroadcastMessage(std::string name, std::string message);
 void ShowSessionMessage(std::string name, std::string message);
+
+template<typename T>
+int ReadBank(std::string title, std::string type, T& res);
+//´ÓÌâ¿âÖĞ¶ÁÈ¡ÊÔÌâ»ò´ğ°¸
+
+template<typename T>
+int SaveBank(std::string title, std::string type, T res);
+//±£´æÊÔÌâ»ò´ğ°¸µ½Ìâ¿â
+
+int ReadStuAns(std::string title, std::string sid, Data_Ans& res);
+
+int SaveStuAns(std::string title, std::string sid, Data_Ans res);
+
+int AutoMarkStuHmwk(std::string title, std::string sid);
+
 
 #endif

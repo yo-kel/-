@@ -38,44 +38,33 @@ void ProcessClientRequest(_client* client) {
 		ClientQuestion(data_question, client);
 		break;
 	}
-	case Data::Message:{
+	case Data::Message: {
 		Data_Message data_message;
 		data_message = boost::get<Data_Message>(data.payload);
 		ClientMessage(data_message, client);
+		break;
+	}
+	case Data::Ans:{
+		Data_Ans data_ans;
+		data_ans = boost::get<Data_Ans>(data.payload);
+		ClientAns(data_ans, client);
+		break;
 	}
 	}
 }
 
-int Send(_client* client, char* buffer, int sz) {
-	client->iResult = send(client->sock, buffer, sz, 0);
-	if (client->iResult == 0 || client->iResult == SOCKET_ERROR) {
-		Disconnect(client);
-		return false;
-	}
-	return true;
-}
 
-
-void Disconnect(_client* client) {
-	if (client->sock)closesocket(client->sock);
-	if (client->clientInfo->authentication) {
-		ClientLogout_UpdateTime(TimeStamp(), client->clientInfo->sid);
-		LogOutNoti(client);//ç™»å‡ºæ‰çº¿æé†’
-		//ç»Ÿè®¡ç™»å…¥ç™»å‡ºæ—¶é—´
-	}
-	client->con = 0;
-	client->iResult = -1;
-	ZeroMemory(&client->clientInfo, sizeof(client->clientInfo));
+void ClientAns(Data_Ans data, _client* client) {
+	//½«´ğ°¸±£´æµ½¶ÔÓ¦¿ÎÌÃµÄ¶ÔÓ¦Ñ§Éú£¬²¢¶ÔÌîÑ¡ÀàĞÍ×Ô¶¯Åú¸Ä
+	data.checked = Data_Ans::unchecked;
+	SaveStuAns(data.title, client->clientInfo->sid, data);
+	if (data.type == "choice" || data.type == "blank")AutoMarkStuHmwk(data.title, client->clientInfo->sid);
 }
-void LogOutNoti(_client* client) {
-	std::cout << "student " << client->clientInfo->sid << "has logged out" << std::endl;
-}
-
 
 void ClientLogin(Data_login data, _client* client) {
-	//ç™»å½•è¿˜åº”éªŒè¯è¯¥å­¦ç”Ÿæ˜¯å¦åœ¨è¯¥è¯¾å ‚
+	//µÇÂ¼»¹Ó¦ÑéÖ¤¸ÃÑ§ÉúÊÇ·ñÔÚ¸Ã¿ÎÌÃ
 	if (client->clientInfo->authentication) {
-		//å‘é€æ¶ˆæ¯é€šçŸ¥clientå·²ç™»å½•
+		//·¢ËÍÏûÏ¢Í¨ÖªclientÒÑµÇÂ¼
 		return;
 	}
 	puts("ClientLogin");
@@ -85,7 +74,7 @@ void ClientLogin(Data_login data, _client* client) {
 	std::cout << client->iResult << std::endl;
 	if (client->iResult != 0)return;
 	if (pwd != data.pwd) {
-		//å‘é€æ¶ˆæ¯é€šçŸ¥clientå¯†ç é”™è¯¯
+		//·¢ËÍÏûÏ¢Í¨ÖªclientÃÜÂë´íÎó
 		return;
 	}
 	client->clientInfo->authentication = 1;
@@ -93,11 +82,11 @@ void ClientLogin(Data_login data, _client* client) {
 	std::cout << data.sid << std::endl;
 	client->clientInfo->position = data.position;
 	client->clientInfo->loginTime = TimeStamp();
-
+	//std::cout << "sdadads" << TimeStamp() << std::endl;
 	ClientLogin_UpdateTime(client->clientInfo->loginTime, client->clientInfo->sid);
 
 	std::cout << "student " << data.sid << " login" << std::endl;
-	//å­¦ç”Ÿåªèƒ½è¿›å…¥å½“å‰å¼€å¯çš„è¯¾å ‚,å­¦ç”Ÿç™»å½•ç™»å‡ºåªè€ƒè™‘ç¬¬ä¸€æ¬¡ç™»å½•å’Œæœ€åä¸€æ¬¡ç™»å‡º
+	//Ñ§ÉúÖ»ÄÜ½øÈëµ±Ç°¿ªÆôµÄ¿ÎÌÃ,Ñ§ÉúµÇÂ¼µÇ³öÖ»¿¼ÂÇµÚÒ»´ÎµÇÂ¼ºÍ×îºóÒ»´ÎµÇ³ö
 	//client->clientInfo.classroom = ;
 	//client->clientInfo.subject = ;
 }
@@ -111,11 +100,12 @@ void ClientController(_client* client) {
 
 void ClientMessage(Data_Message data, _client* client) {
 	if (data.broadcast) {
+		std::cout << data.name << " " << data.message << std::endl;
 		BroadcastMessage(data.name, data.message);
-		SendLocalBroadcastMessage(data.message, data.name);
+		SendLocalBroadcastMessage(data.name, data.message);
 	}
 	else {
-		if (data.status == 1)SendSessionMessage(client, "create session", 1);//å­¦ç”Ÿç«¯ä¹Ÿå¯ä¸»åŠ¨å‘æ•™å¸ˆç«¯å‘èµ·ç”³è¯·
+		if (data.status == 1)SendSessionMessage(client, "create session", 1);//Ñ§Éú¶ËÒ²¿ÉÖ÷¶¯Ïò½ÌÊ¦¶Ë·¢ÆğÉêÇë
 		else ShowSessionMessage(data.name, data.message);
 	}
 }
@@ -123,17 +113,4 @@ void ClientMessage(Data_Message data, _client* client) {
 void ClientQuestion(Data_Question data,_client* client ) {
 	std::cout << "student " + data.name + " " + data.sid + " at " + data.position + "asks a question" << std::endl;
 	std::cout << data.content << std::endl;
-}
-
-void ClientLogin_UpdateTime(LL time, std::string sid) {
-	//å­¦ç”Ÿç™»å½•æ—¶æ›´æ–°checkin
-
-	LL tmp = 0;
-	QueryStudentCheckInOut<LL>(subjectName, className, sid, tmp, "checkin");
-	if (tmp != 0)return;
-	UpdateStudentCheckinOut(subjectName, className, sid, time, "checkin");
-}
-
-void ClientLogout_UpdateTime(LL time, std::string sid) {
-	UpdateStudentCheckinOut(subjectName, className, sid, time, "checkout");
 }

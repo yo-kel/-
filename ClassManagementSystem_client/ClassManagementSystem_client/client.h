@@ -15,5 +15,7 @@
 
 extern SOCKET clientSocket;
 
+extern int SocketConnection;
+
 int ClientInit();
 #endif // !

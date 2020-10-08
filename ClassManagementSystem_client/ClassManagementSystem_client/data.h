@@ -2,12 +2,13 @@
 #ifndef dataH
 #define dataH
 
+//数据类型 数据序列化和反序列化
+
 #include <boost/serialization/variant.hpp>
 #include <boost/serialization/vector.hpp>
 #include "global.h"
 
-//数据类型 数据序列化和反序列化
-
+#define Chunk_Size 1000
 #define bufferSize 5000
 
 class Data_Student {
@@ -24,6 +25,67 @@ private:
 		ar& attendence;
 		ar& score;
 		ar& work;
+	}
+};
+
+class Data_File {
+public:
+	static const int finished = 0;
+	static const int alive = 1;
+	int status;
+	std::string sid;
+	std::string fileName;//保存到subject/class/sid
+	char fileBytes[Chunk_Size];
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& status;
+		ar& sid;
+		ar& fileName;
+		ar& fileBytes;
+	}
+};
+
+class Data_Ans {
+public:
+	static const int unchecked = -1;
+	static const int correct = -2;
+	static const int wrong = -3;
+	std::string title;
+	std::string type;//"choice" "blank" "short" "file"
+	std::string content;
+	int checked;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& title;
+		ar& type;
+		ar& content;
+		ar& checked;
+	}
+};
+
+class Data_Hmwk {
+public:
+	std::string title;
+	std::string type;
+	LL ddl;
+	int score;
+	std::string content;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& title;
+		ar& type;
+		ar& ddl;
+		ar& score;
+		ar& content;
 	}
 };
 
@@ -66,6 +128,7 @@ private:
 		ar& status;//用于是否接受临时会话，目前一定接受
 		ar& broadcast;
 		ar& message;
+		ar& name;
 	}
 };
 
@@ -87,13 +150,16 @@ private:
 	}
 };
 
-typedef boost::variant<Data_login, Data_Student, Data_Question, Data_Message> DataT;
+typedef boost::variant<Data_login, Data_Student, Data_Question, Data_Message, Data_Ans, Data_Hmwk, Data_File> DataT;
 class Data {
 public:
 	static const int Login = 0;
 	static const int Student = 1;
 	static const int Question = 2;
 	static const int Message = 3;
+	static const int Ans = 4;
+	static const int Hmwk = 5;
+	static const int File = 6;
 	DataT payload;
 private:
 	friend class boost::serialization::access;

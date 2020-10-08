@@ -69,6 +69,13 @@ int main() {
 	//for (int i = 0;i < data.check.size();i++) {
 	//	printf("%d\n", data.check[i]);
 	//}
+
+	//std::cout << SplicePathString(3, subjectName, std::string("Bank"), std::string("1000")) << std::endl;
+	//std::string path = "." + SplicePathString(4, std::string("subject"), subjectName, std::string("bank"), std::string("1001"));
+	//std::vector<std::string >S;
+	//AllFileNames(path, S);
+	//WriteToFile(path, "1001.hmwk", "hello world123");
+	//std::cout << SplicePathString(3, subjectName, "Bank", "1000") << std::endl;
 	while (1) {
 		AcceptCon();
 

@@ -16,7 +16,7 @@ void ShowSessionMessage(std::string name, std::string message);
 
 
 void SendSessionMessage( std::string message, int status);
-void SendBroadcastMessage(std::string name);
+void SendBroadcastMessage(std::string message);
 
 
 

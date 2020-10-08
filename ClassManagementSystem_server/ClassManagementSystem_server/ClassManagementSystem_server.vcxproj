@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\mysqlx;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\mysql;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include\jdbc;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\mysql-connector-c++-8.0.21-win32\mysql-connector-c++-8.0.21-win32\include;C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\boost_1_74_0\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@
     <ClInclude Include="activity.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="data.h" />
+    <ClInclude Include="fileio.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="mysql.h" />
     <ClInclude Include="request.h" />
@@ -154,6 +156,7 @@
     <ClCompile Include="activity.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="fileio.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="mysql.cpp" />
     <ClCompile Include="request.cpp" />

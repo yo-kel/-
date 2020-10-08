@@ -1,6 +1,7 @@
 #include "client.h"
 
 SOCKET clientSocket;
+int SocketConnection = 0;
 
 struct ServerInfo {
 	LL conTime;
@@ -51,6 +52,7 @@ int ClientInit() {
 		return -1;
 	}
 	else {
+		SocketConnection = 1;
 		std::cout << "Connected to Server: " << ServerAddress << std::endl;
 		memcpy(&ser, &addr, sizeof(SOCKADDR));
 	}

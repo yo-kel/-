@@ -33,6 +33,9 @@
     <ClInclude Include="request.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="screenshot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="request.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="screenshot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

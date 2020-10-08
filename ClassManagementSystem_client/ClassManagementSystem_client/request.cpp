@@ -33,19 +33,24 @@ void ServerMessage(Data_Message data) {
 }
 
 void HandleRequest() {
-	int result = Recv(buff, 2000);
-	if (result == false)return;
-	std::string rawData(buff);
+	while (SocketConnection)
+	{
+		int result = Recv(buff, 2000);
+		if (result == false)return;
+		std::string rawData(buff);
 
-	Data data;
-	data = DataDeserialize(rawData);
+		Data data;
+		data = DataDeserialize(rawData);
 
-	switch (data.payload.which()) {
-	case Data::Message: {
-		Data_Message data_message;
-		data_message = boost::get<Data_Message>(data.payload);
-		ServerMessage(data_message);
-		break;
-	}
+		switch (data.payload.which()) {
+		case Data::Message: {
+			Data_Message data_message;
+			data_message = boost::get<Data_Message>(data.payload);
+			ServerMessage(data_message);
+			break;
+		}
+		}
+
+		Sleep(1000);
 	}
 }
