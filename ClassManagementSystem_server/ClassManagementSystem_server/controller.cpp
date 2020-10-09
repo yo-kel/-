@@ -43,6 +43,100 @@ void AcceptCon() {
 }
 
 
+void HandleActivity() {
+
+	//std::cout << "load class roomsubject" << std::endl;
+
+	int x;
+	std::cin >> x;
+	Data_Array<std::string>classroomSubject;
+	QueryClassroomSubject(classroomSubject);
+	std::cout << "->classroom " + classroomName + " has subject:" << std::endl;
+	for (int i = 0;i < classroomSubject.S.size();i++) {
+		std::cout << classroomSubject.S[i] << std::endl;
+	}
+
+
+	//std::cout << u8"导入 教室的科目" << std::endl;
+	std::cin >> x;
+	std::string subject[] = { "eating", "gaming", "sleeping" };
+	std::cout << "->update classroom " << classroomName << "subject" << std::endl;
+	std::cout <<"->"<< subject[0] << " " << subject[1] << " " << subject[2] << std::endl;
+	SaveClassroomSubject(classroomName, subject, 3);
+
+
+	//std::cout << u8"导出 教室的科目" << std::endl;
+	std::cin >> x;
+	//Data_Array<std::string>classroomSubject;
+	QueryClassroomSubject(classroomSubject);
+	std::cout << "->classroom " + classroomName + " has subject:" << std::endl;
+	for (int i = 0;i < classroomSubject.S.size();i++) {
+		std::cout <<"->"<< classroomSubject.S[i] << std::endl;
+	}
+
+
+	//std::cout << u8"导出 科目课堂" << std::endl;
+	std::cin >> x;
+	Data_Array<std::string>subjectClass;
+	QuerySubjectClass(subjectName, subjectClass);
+	std::cout << "->Subject " + subjectName + " has class:" << std::endl;
+	for (int i = 0;i < subjectClass.S.size();i++) {
+		std::cout << "->" << subjectClass.S[i] << std::endl;
+	}
+
+
+	//std::cout << u8"导出 科目学生" << std::endl;
+	std::cin >> x;
+	subjectName = "math";
+	Data_Array<std::string>subjectStudent;
+	QuerySubjectStudent(subjectName, subjectStudent);
+	std::cout << "->Subject " + subjectName + " has student:" << std::endl;
+	for (int i = 0;i < subjectStudent.S.size();i++) {
+		std::cout << "->" << subjectStudent.S[i] << std::endl;
+	}
+
+
+	//std::cout << u8"修改 当前科目" << std::endl;
+
+	std::cout << "change current subject" << std::endl;
+	std::string str;
+	std::cin >> str;
+	subjectName = str;
+
+
+	//std::cout << u8"导入 科目学生" << std::endl;
+	std::cin >> x;
+	std::string student[] = { "p1", "p2", "p3" };
+	std::cout << "->update subject " << subjectName << "student" << std::endl;
+	std::cout << "->" << student[0] << " " << student[1] << " " << student[2] << std::endl;
+	SaveSubjectStudent(subjectName, student, 3);
+
+
+	//std::cout << u8"导出 科目学生" << std::endl;
+	std::cin >> x;
+	//Data_Array<std::string>subjectStudent;
+	QuerySubjectStudent(subjectName, subjectStudent);
+	std::cout << "->Subject " + subjectName + " has student:" << std::endl;
+	for (int i = 0;i < subjectStudent.S.size();i++) {
+		std::cout <<"->"<< subjectStudent.S[i] << std::endl;
+	}
+
+	std::cout << "create class" << std::endl;
+	std::cin >> str;
+	className = str;
+	InsertClass(subjectName,className);
+
+
+	//std::cout << u8"导出 科目课堂" << std::endl;
+	std::cin >> x;
+	Data_Array<std::string>newSubjectClass;
+	QuerySubjectClass(subjectName, newSubjectClass);
+	std::cout << "->Subject " + subjectName + " has class:" << std::endl;
+	for (int i = 0;i < newSubjectClass.S.size();i++) {
+		std::cout << "->" << newSubjectClass.S[i] << std::endl;
+	}
+}
+
 int main() {
 
 	MysqlInit();
@@ -76,6 +170,8 @@ int main() {
 	//AllFileNames(path, S);
 	//WriteToFile(path, "1001.hmwk", "hello world123");
 	//std::cout << SplicePathString(3, subjectName, "Bank", "1000") << std::endl;
+	std::thread t(HandleActivity);
+	t.detach();
 	while (1) {
 		AcceptCon();
 

@@ -70,23 +70,6 @@ int SaveSubjectStudent(std::string subjectId, std::string* arr, int n) {
 	return 0;
 }
 
-int QuerySubjectStudent(std::string subjectId,  Data_Array<std::string>& students) {
-	std::string table = "subject";
-
-	sql::Statement* stmt;
-	stmt = con->createStatement();
-
-	sql::ResultSet* res;
-	std::string statement = "SELECT student from " + table + " WHERE subject_name=" +StringConvert( subjectId);
-	res = stmt->executeQuery(statement.c_str());
-	std::cout << statement << std::endl;
-	while (res->next()) {
-		std::string rawData = res->getString("student").c_str();
-		DataArrayDeserialize<std::string>(rawData,students);
-		return 0;
-	}
-	return -1;
-}
 
 std::string StringConvert(std::string string) {
 	return "'" + string + "'";
@@ -163,6 +146,48 @@ int QueryStudentId(std::string subjectId, std::string sid,int &studentId) {
 		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
 	}
 }
+
+int QueryClassroomSubject(Data_Array<std::string>& subject) {
+	std::string table = "classroom";
+	sql::Statement* stmt;
+	stmt = con->createStatement();
+
+	sql::ResultSet* res;
+	std::string statement = "SELECT subject from " + table;
+	std::cout << statement << std::endl;
+	res = stmt->executeQuery(statement.c_str());
+	delete stmt;
+	while (res->next()) {
+		std::string rawData = res->getString("subject").c_str();
+		//std::cout << rawData << std::endl;
+
+		DataArrayDeserialize<std::string>(rawData,subject);
+		return 0;
+	}
+	return -1;
+}
+
+int QuerySubjectStudent(std::string subjectId, Data_Array<std::string>& student) {
+	std::string table = "subject";
+	sql::Statement* stmt;
+	stmt = con->createStatement();
+
+	sql::ResultSet* res;
+	std::string statement = "SELECT student from " + table+" WHERE subject_name="+StringConvert(subjectId);
+	std::cout << statement << std::endl;
+	res = stmt->executeQuery(statement.c_str());
+	delete stmt;
+	while (res->next()) {
+		std::string rawData = res->getString("student").c_str();
+		//std::cout << rawData << std::endl;
+
+		DataArrayDeserialize<std::string>(rawData, student);
+		return 0;
+	}
+	return -1;
+
+}
+
 
 template<typename T>
 int QueryStudentCheckInOut(std::string classId,Data_Array<T> &checkInOut, std::string inOut) {

@@ -29,8 +29,13 @@ int FindStudentPwd(std::string sid,std::string &pwd);
 int SaveClassroomSubject(std::string cid, std::string* arr ,int n);
 //保存教室的科目有哪些
 
+int QueryClassroomSubject(Data_Array<std::string>& subject);
+//查询教室的科目有哪些
+
 int SaveSubjectStudent(std::string subjectId, std::string*arr, int n);
 //保存科目的学生有哪些
+
+int QuerySubjectStudent(std::string subjectId, Data_Array<std::string>&student);
 
 template<typename T>
 int QueryStudentCheckInOut(std::string classId, Data_Array<T>& checkInOut, std::string inOut);
@@ -44,7 +49,7 @@ int QueryStudentId(std::string subjectId, std::string sid, int& studentId);
 
 template<typename T>
 int QueryStudentCheckInOut(std::string classId, Data_Array<T>& checkInOut, std::string inOut);
-//查询教室的check
+//查询课堂的check
 
 template<typename T>
 int QueryStudentCheckInOut(std::string subjectId, std::string classId, std::string sid, T& checkInOut, std::string inOut);
@@ -55,6 +60,11 @@ int UpdateStudentCheck(std::string subjectId, std::string classId, std::string s
 
 int QuerySubjectClass(std::string subjectId, Data_Array<std::string>& classes);
 //查询科目的课堂有哪些
+
+int QuerySubjectStudent(std::string subjectId, Data_Array<std::string>& student);
+//查询科目的学生有哪些
+
+
 
 int UpdateSubjectClass(std::string subjectId, Data_Array<std::string>& classes);
 //更新科目的课堂有哪些

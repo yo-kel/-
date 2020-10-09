@@ -1,8 +1,19 @@
-﻿  controller.cpp
+﻿  activity.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\activity.cpp(18,9): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  controller.cpp
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\controller.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  request.cpp
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\data.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\client.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\ClassManagementSystem_client\activity.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  Generating Code...
   ClassManagementSystem_client.vcxproj -> C:\Users\xsj\Desktop\2020秋实习任务\2020秋实习任务\课堂管理系统\ClassManagementSystem_client\Debug\ClassManagementSystem_client.exe

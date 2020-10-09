@@ -88,11 +88,11 @@ int BroadcastHmwk(std::string title) {
 }
 
 void SendLocalBroadcastMessage(std::string name, std::string message) {
-	std::cout << "broadcast message " << name << " : " << message << std::endl;
+	std::cout << "->received broadcast message " << name << " : " << message << std::endl;
 }
 
 void ShowSessionMessage(std::string name, std::string message) {
-	std::cout << "Session message " << name << " : " << message << std::endl;
+	std::cout << "->received Session message " << name << " : " << message << std::endl;
 }
 
 

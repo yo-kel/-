@@ -62,6 +62,16 @@ void CreateSession(std::string name) {
 	std::cout << "create session with "<<name<< std::endl;
 }
 
+void SendQuestion(std::string content) {
+	Data data;
+	Data_Question data_question;
+	data_question.position = clientPosition;
+	data_question.sid = sid;
+	data_question.name = studentName;
+	data_question.content = content;
+	data.payload = data_question;
+	SendData(data);
+}
 
 void ShowSessionMessage(std::string name, std::string message) {
 	std::cout << "session message " << name << " : " << message << std::endl;

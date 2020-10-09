@@ -20,8 +20,8 @@ int Recv(_client* client, char* buffer, int sz) {
 void ProcessClientRequest(_client* client) {
 	client->iResult = Recv(client, buff, Buffer_Size);
 	if (!client->iResult)return;
-	std::cout << buff << std::endl;
-	std::cout << client->iResult << std::endl;
+	//std::cout << buff << std::endl;
+	//std::cout << client->iResult << std::endl;
 	int sz = ((client->iResult + 1) / Chunk_Size) * Chunk_Size;
 	for (int i = 0, index = 0;index < sz;i++, index += Chunk_Size) {
 		int offset = index * sizeof(CHAR);
@@ -136,6 +136,6 @@ void ClientMessage(Data_Message data, _client* client) {
 }
 
 void ClientQuestion(Data_Question data,_client* client ) {
-	std::cout << "student " + data.name + " " + data.sid + " at " + data.position + "asks a question" << std::endl;
+	std::cout << "->student " + data.name + " " + data.sid + " at " + data.position + "asks a question:" << std::endl;
 	std::cout << data.content << std::endl;
 }

@@ -20,9 +20,10 @@ std::string DataSerialize(Data &data) {
 }
 
 Data DataDeserialize(std::string string) {
+    Data data;
+    if (string == "")return data;
     std::istringstream archive_stream(string);
     boost::archive::text_iarchive archive(archive_stream);
-    Data data;
     archive >> data;
     return data;
 }
@@ -42,6 +43,7 @@ template std::string DataArraySerialize<LL>(Data_Array<LL>& data);
 
 template<typename T>
 int DataArrayDeserialize(std::string string, Data_Array<T>& data) {
+    if (string == "")return 0;
     std::istringstream archive_stream(string);
     boost::archive::text_iarchive archive(archive_stream);
     archive >> data;
