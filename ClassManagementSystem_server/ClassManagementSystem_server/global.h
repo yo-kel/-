@@ -26,6 +26,9 @@ extern std::string className;
 #define ServerPort 6666
 #define ClientMax 105
 
+#define Chunk_Size 5120
+#define Part_Size 4096
+
 struct ClientInfo {
 	LL loginTime;
 	int authentication;
@@ -49,3 +52,6 @@ extern SOCKET serverSocket;
 extern _client* client[ClientMax];
 
 LL TimeStamp();
+int ReadChunkHeader(char* buffer,int offset);
+std::string WriteChunkHeader(int x);
+std::string DataSerialChunk(std::string dataSerial);

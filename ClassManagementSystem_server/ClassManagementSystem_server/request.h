@@ -8,12 +8,15 @@
 #include "data.h"
 #include "mysql.h"
 #include "activity.h"
-//request 处理来自客户端的信息，调用相应的activity
+//request 澶勭悊鏉ヨ嚜瀹㈡埛绔殑淇℃伅锛岃皟鐢ㄧ浉搴旂殑activity
+
+#define Buffer_Size 51200
 
 int Recv(_client* client, char* buffer, int sz);
 void ClientLogin(Data_login data, _client* client);
 void ClientQuestion(Data_Question data, _client* client);
 void ClientMessage(Data_Message data, _client* client);
+void ClientFile(Data_File data, _client* client);
 void ClientAns(Data_Ans data, _client* client);
 
 #endif // !REQUESTH

@@ -1,6 +1,6 @@
 #include "request.h"
 
-char buff[2000];
+char buff[Buffer_Size];
 
 void Disconnect() {
 	if (clientSocket)closesocket(clientSocket);
@@ -35,20 +35,29 @@ void ServerMessage(Data_Message data) {
 void HandleRequest() {
 	while (SocketConnection)
 	{
-		int result = Recv(buff, 2000);
+		int result = Recv(buff, Buffer_Size);
 		if (result == false)return;
-		std::string rawData(buff);
+		int sz = (result / Chunk_Size + 1) * Chunk_Size;
+		for (int i = 0, index = 0;index < sz;i++, index += Chunk_Size) {
+			int offset = index * sizeof(CHAR);
+			//printf("->>%d %d\n", i, offset);
+			int len = ReadChunkHeader(buff, offset);
 
-		Data data;
-		data = DataDeserialize(rawData);
+			if (len == 0)break;
+			//puts("YES");
+			std::string rawData(buff + offset + 10 * sizeof(CHAR), len);
 
-		switch (data.payload.which()) {
-		case Data::Message: {
-			Data_Message data_message;
-			data_message = boost::get<Data_Message>(data.payload);
-			ServerMessage(data_message);
-			break;
-		}
+			Data data;
+			data = DataDeserialize(rawData);
+
+			switch (data.payload.which()) {
+			case Data::Message: {
+				Data_Message data_message;
+				data_message = boost::get<Data_Message>(data.payload);
+				ServerMessage(data_message);
+				break;
+			}
+			}
 		}
 
 		Sleep(1000);

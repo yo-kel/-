@@ -8,7 +8,7 @@
 #include "activity.h"
 
 
-extern char buff[2000];
+extern char buff[Buffer_Size];
 void HandleRequest();
 
 

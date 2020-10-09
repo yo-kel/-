@@ -41,7 +41,7 @@ template std::string DataArraySerialize<std::string>(Data_Array<std::string>& da
 template std::string DataArraySerialize<LL>(Data_Array<LL>& data);
 
 template<typename T>
-int DataArrayDeserialize(std::string string, Data_Array<T>&data) {
+int DataArrayDeserialize(std::string string, Data_Array<T>& data) {
     std::istringstream archive_stream(string);
     boost::archive::text_iarchive archive(archive_stream);
     archive >> data;

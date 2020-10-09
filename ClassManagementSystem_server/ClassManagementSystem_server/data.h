@@ -2,13 +2,11 @@
 #ifndef dataH
 #define dataH
 
+//æ•°æ®ç±»å‹ æ•°æ®åºåˆ—åŒ–å’Œååºåˆ—åŒ–
+
 #include <boost/serialization/variant.hpp>
 #include <boost/serialization/vector.hpp>
 #include "global.h"
-
-//Êı¾İÀàĞÍ Êı¾İĞòÁĞ»¯ºÍ·´ĞòÁĞ»¯
-
-#define bufferSize 5000
 
 class Data_Student {
 public:
@@ -24,6 +22,28 @@ private:
 		ar& attendence;
 		ar& score;
 		ar& work;
+	}
+};
+
+class Data_File {
+public:
+	static const int finished = 0;
+	static const int alive = 1;
+	int status;
+	int sz;
+	std::string sid;
+	std::string fileName;//ä¿å­˜åˆ°subject/class/sid
+	char fileBytes[Part_Size];
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version) {
+		//ar& boost::serialization::base_object<Data>(*this);
+		ar& status;
+		ar& sz;
+		ar& sid;
+		ar& fileName;
+		ar& fileBytes;
 	}
 };
 
@@ -97,14 +117,14 @@ public:
 		broadcast = 0;
 		message = "";
 	}
-	Data_Message(int status, int broadcast, std::string message,std::string name) :
-		status(status), broadcast(broadcast), message(message),name(name) {}
+	Data_Message(int status, int broadcast, std::string message, std::string name) :
+		status(status), broadcast(broadcast), message(message), name(name) {}
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar, const unsigned int version) {
 		//ar& boost::serialization::base_object<Data>(*this);
-		ar& status;//ÓÃÓÚÊÇ·ñ½ÓÊÜÁÙÊ±»á»°£¬Ä¿Ç°Ò»¶¨½ÓÊÜ
+		ar& status;//ç”¨äºæ˜¯å¦æ¥å—ä¸´æ—¶ä¼šè¯ï¼Œç›®å‰ä¸€å®šæ¥å—
 		ar& broadcast;
 		ar& message;
 		ar& name;
@@ -129,7 +149,7 @@ private:
 	}
 };
 
-typedef boost::variant<Data_login,Data_Student,Data_Question,Data_Message,Data_Ans,Data_Hmwk> DataT;
+typedef boost::variant<Data_login, Data_Student, Data_Question, Data_Message, Data_Ans, Data_Hmwk, Data_File> DataT;
 class Data {
 public:
 	static const int Login = 0;
@@ -138,6 +158,7 @@ public:
 	static const int Message = 3;
 	static const int Ans = 4;
 	static const int Hmwk = 5;
+	static const int File = 6;
 	DataT payload;
 private:
 	friend class boost::serialization::access;
@@ -158,7 +179,7 @@ public:
 			S.push_back(arr[i]);
 		}
 	}
-	Data_Array(){}
+	Data_Array() {}
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
@@ -170,7 +191,7 @@ private:
 
 //Data_Array Data
 
-std::string DataSerialize(Data &data);
+std::string DataSerialize(Data& data);
 
 Data DataDeserialize(std::string string);
 

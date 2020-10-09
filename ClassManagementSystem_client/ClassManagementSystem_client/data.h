@@ -8,8 +8,6 @@
 #include <boost/serialization/vector.hpp>
 #include "global.h"
 
-#define Chunk_Size 1000
-#define bufferSize 5000
 
 class Data_Student {
 public:
@@ -33,15 +31,17 @@ public:
 	static const int finished = 0;
 	static const int alive = 1;
 	int status;
+	int sz;
 	std::string sid;
 	std::string fileName;//保存到subject/class/sid
-	char fileBytes[Chunk_Size];
+	char fileBytes[Part_Size];
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar, const unsigned int version) {
 		//ar& boost::serialization::base_object<Data>(*this);
 		ar& status;
+		ar& sz;
 		ar& sid;
 		ar& fileName;
 		ar& fileBytes;

@@ -50,13 +50,13 @@
     <ClCompile Include="global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="activity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="request.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="screenshot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="activity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

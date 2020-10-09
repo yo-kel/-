@@ -12,6 +12,9 @@
 #include <thread>
 
 #define LL long long
+#define Buffer_Size 51200
+#define Chunk_Size 5120
+#define Part_Size 4096
 
 #pragma comment(lib,"Ws2_32.lib")
 using namespace std::chrono;
@@ -22,3 +25,6 @@ extern std::string studentName;
 extern std::string pwd;
 
 LPCWSTR ConvertStringToLpcwstr(std::string s);
+int ReadChunkHeader(char* buffer, int offset);
+std::string WriteChunkHeader(int x);
+std::string DataSerialChunk(std::string dataSerial);

@@ -1,6 +1,6 @@
 #include "request.h"
 
-char buff[2000];
+char buff[Buffer_Size];
 
 int Recv(_client* client, char* buffer, int sz) {
 	if (client->con == false)return false;
@@ -10,7 +10,7 @@ int Recv(_client* client, char* buffer, int sz) {
 			Disconnect(client);
 			return false;
 		}
-		return true;
+		return client->iResult;
 	}
 	return false;
 }
@@ -18,75 +18,100 @@ int Recv(_client* client, char* buffer, int sz) {
 
 
 void ProcessClientRequest(_client* client) {
-	client->iResult = Recv(client, buff, 2000);
+	client->iResult = Recv(client, buff, Buffer_Size);
 	if (!client->iResult)return;
-	std::string rawData(buff);
+	std::cout << buff << std::endl;
+	std::cout << client->iResult << std::endl;
+	int sz = ((client->iResult + 1) / Chunk_Size) * Chunk_Size;
+	for (int i = 0, index = 0;index < sz;i++, index += Chunk_Size) {
+		int offset = index * sizeof(CHAR);
+		//printf("->>%d %d\n", i, offset);
+		int len = ReadChunkHeader(buff,offset);
 
-	Data data;
-	data = DataDeserialize(rawData);
-
-	switch (data.payload.which()) {
-	case Data::Login: {
-		Data_login data_login;
-		data_login = boost::get<Data_login>(data.payload);
-		ClientLogin(data_login, client);
-		break;
-	}
-	case Data::Question: {
-		Data_Question data_question;
-		data_question = boost::get<Data_Question>(data.payload);
-		ClientQuestion(data_question, client);
-		break;
-	}
-	case Data::Message: {
-		Data_Message data_message;
-		data_message = boost::get<Data_Message>(data.payload);
-		ClientMessage(data_message, client);
-		break;
-	}
-	case Data::Ans:{
-		Data_Ans data_ans;
-		data_ans = boost::get<Data_Ans>(data.payload);
-		ClientAns(data_ans, client);
-		break;
-	}
+		if (len == 0)break;
+		std::string rawData(buff + offset + 10 * sizeof(CHAR), len);
+		Data data;
+		data = DataDeserialize(rawData);
+		switch (data.payload.which()) {
+		case Data::Login: {
+			Data_login data_login;
+			data_login = boost::get<Data_login>(data.payload);
+			ClientLogin(data_login, client);
+			break;
+		}
+		case Data::Question: {
+			Data_Question data_question;
+			data_question = boost::get<Data_Question>(data.payload);
+			ClientQuestion(data_question, client);
+			break;
+		}
+		case Data::Message: {
+			Data_Message data_message;
+			data_message = boost::get<Data_Message>(data.payload);
+			ClientMessage(data_message, client);
+			break;
+		}
+		case Data::Ans: {
+			Data_Ans data_ans;
+			data_ans = boost::get<Data_Ans>(data.payload);
+			ClientAns(data_ans, client);
+			break;
+		}
+		case Data::File: {
+			Data_File data_file;
+			data_file = boost::get<Data_File>(data.payload);
+			ClientFile(data_file, client);
+		}
+		}
 	}
 }
 
+void ClientFile(Data_File data, _client* client) {
+	std::string path = "." + SplicePathString(4, std::string("subject"),
+		subjectName, className, client->clientInfo->sid);
+	CreateDir(path);
+	std::ofstream file(path+data.fileName, std::ios::binary | std::ios_base::app);
+	if (file.is_open()) {
+		file.write(data.fileBytes, data.sz);
+	}
+
+}
 
 void ClientAns(Data_Ans data, _client* client) {
-	//½«´ğ°¸±£´æµ½¶ÔÓ¦¿ÎÌÃµÄ¶ÔÓ¦Ñ§Éú£¬²¢¶ÔÌîÑ¡ÀàĞÍ×Ô¶¯Åú¸Ä
+	//å°†ç­”æ¡ˆä¿å­˜åˆ°å¯¹åº”è¯¾å ‚çš„å¯¹åº”å­¦ç”Ÿï¼Œå¹¶å¯¹å¡«é€‰ç±»å‹è‡ªåŠ¨æ‰¹æ”¹
 	data.checked = Data_Ans::unchecked;
 	SaveStuAns(data.title, client->clientInfo->sid, data);
 	if (data.type == "choice" || data.type == "blank")AutoMarkStuHmwk(data.title, client->clientInfo->sid);
 }
 
 void ClientLogin(Data_login data, _client* client) {
-	//µÇÂ¼»¹Ó¦ÑéÖ¤¸ÃÑ§ÉúÊÇ·ñÔÚ¸Ã¿ÎÌÃ
+	//ç™»å½•è¿˜åº”éªŒè¯è¯¥å­¦ç”Ÿæ˜¯å¦åœ¨è¯¥è¯¾å ‚
 	if (client->clientInfo->authentication) {
-		//·¢ËÍÏûÏ¢Í¨ÖªclientÒÑµÇÂ¼
+		//å‘é€æ¶ˆæ¯é€šçŸ¥clientå·²ç™»å½•
 		return;
 	}
-	puts("ClientLogin");
+	puts("Client attempt to Login");
 	std::string pwd;
 	std::cout << pwd << std::endl;
 	client->iResult = FindStudentPwd(data.sid, pwd);
 	std::cout << client->iResult << std::endl;
 	if (client->iResult != 0)return;
 	if (pwd != data.pwd) {
-		//·¢ËÍÏûÏ¢Í¨ÖªclientÃÜÂë´íÎó
+		puts("Client Login failed");
+		//å‘é€æ¶ˆæ¯é€šçŸ¥clientå¯†ç é”™è¯¯
 		return;
 	}
+	puts("Client Login successfully");
+	std::cout << "student " << data.sid << " login" << std::endl;
 	client->clientInfo->authentication = 1;
 	client->clientInfo->sid = data.sid;
-	std::cout << data.sid << std::endl;
+	//std::cout << data.sid << std::endl;
 	client->clientInfo->position = data.position;
 	client->clientInfo->loginTime = TimeStamp();
 	//std::cout << "sdadads" << TimeStamp() << std::endl;
 	ClientLogin_UpdateTime(client->clientInfo->loginTime, client->clientInfo->sid);
-
-	std::cout << "student " << data.sid << " login" << std::endl;
-	//Ñ§ÉúÖ»ÄÜ½øÈëµ±Ç°¿ªÆôµÄ¿ÎÌÃ,Ñ§ÉúµÇÂ¼µÇ³öÖ»¿¼ÂÇµÚÒ»´ÎµÇÂ¼ºÍ×îºóÒ»´ÎµÇ³ö
+	//puts("finished");
+	//å­¦ç”Ÿåªèƒ½è¿›å…¥å½“å‰å¼€å¯çš„è¯¾å ‚,å­¦ç”Ÿç™»å½•ç™»å‡ºåªè€ƒè™‘ç¬¬ä¸€æ¬¡ç™»å½•å’Œæœ€åä¸€æ¬¡ç™»å‡º
 	//client->clientInfo.classroom = ;
 	//client->clientInfo.subject = ;
 }
@@ -100,12 +125,12 @@ void ClientController(_client* client) {
 
 void ClientMessage(Data_Message data, _client* client) {
 	if (data.broadcast) {
-		std::cout << data.name << " " << data.message << std::endl;
+		//std::cout << data.name << " " << data.message << std::endl;
 		BroadcastMessage(data.name, data.message);
 		SendLocalBroadcastMessage(data.name, data.message);
 	}
 	else {
-		if (data.status == 1)SendSessionMessage(client, "create session", 1);//Ñ§Éú¶ËÒ²¿ÉÖ÷¶¯Ïò½ÌÊ¦¶Ë·¢ÆğÉêÇë
+		if (data.status == 1)SendSessionMessage(client, "create session", 1);//å­¦ç”Ÿç«¯ä¹Ÿå¯ä¸»åŠ¨å‘æ•™å¸ˆç«¯å‘èµ·ç”³è¯·
 		else ShowSessionMessage(data.name, data.message);
 	}
 }

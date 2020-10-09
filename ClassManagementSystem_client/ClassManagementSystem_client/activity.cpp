@@ -3,11 +3,37 @@
 void SendData(Data& data) {
 	std::string dataSerial;
 	dataSerial = DataSerialize(data);
+	//std::cout << "|" << dataSerial << "|" << std::endl;
+	dataSerial = DataSerialChunk(dataSerial);
+	//std::cout << dataSerial.length() << std::endl;
+	send(clientSocket, dataSerial.c_str(), Chunk_Size, 0);
+	//puts("");
+}
 
-	int n = dataSerial.length();
-	//strcpy(sendBuff, dataSerial.c_str());
 
-	send(clientSocket, dataSerial.c_str(), n + 1, 0);
+
+
+void SendFileThread(std::string path,std::string fileName) {
+	FILE* file;
+	file = fopen((path+fileName).c_str(), "rb");
+	size_t nbytes = 0;
+	Data data;
+	Data_File data_file;
+	data_file.status=data_file.alive;
+	data_file.fileName = fileName;
+	while ((nbytes = fread(data_file.fileBytes, sizeof(char), Chunk_Size, file)) > 0) {
+		data_file.sz = nbytes;
+		data.payload = data_file;
+		SendData(data);
+	}
+	data_file.status = data_file.finished;
+	data.payload = data_file;
+	SendData(data);
+}
+
+void SendFile(std::string path,std::string fileName) {
+	std::thread t(SendFileThread, path, fileName);
+	t.detach();
 }
 
 void ClientLogin(std::string sid, std::string pwd, std::string position) {
@@ -30,7 +56,6 @@ void SendBroadcastMessage(std::string message) {
 
 void ShowBroadcastMessage(std::string name, std::string message) {
 	std::cout << "broadcast message " << name << " : " << message << std::endl;
-
 }
 
 void CreateSession(std::string name) {

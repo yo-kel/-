@@ -17,7 +17,7 @@ int FindStudentPwd(std::string sid,std::string &pwd) {
 		delete stmt;
 		while (res->next()) {
 			pwd = res->getString("pwd").c_str();
-			std::cout << pwd << std::endl;
+			//std::cout << pwd << std::endl;
 			return 0;
 		}
 		return -1;
@@ -242,7 +242,7 @@ int UpdateStudentCheckinOut(std::string subjectId,std::string classId, std::stri
 	if (QueryStudentId(subjectId, sid, studentId) != 0)return -1;
 	std::string table = "class";
 	
-	std::cout << "dsadasd " << timestamp << std::endl;
+	std::cout << "timestamp: " << timestamp << std::endl;
 	sql::Statement* stmt;
 	stmt = con->createStatement();
 

@@ -6,8 +6,8 @@ void SendSessionMessage(_client* client, std::string message, int status) {
 	data.payload = Data_Message(status, 0, message,"teacher");
 	std::string dataSerial;
 	dataSerial = DataSerialize(data);
-	int n = dataSerial.length();
-	Send(client, dataSerial.c_str(), n + 1);
+	dataSerial = DataSerialChunk(dataSerial);
+	Send(client, dataSerial.c_str(), Chunk_Size);
 }
 
 
@@ -48,24 +48,6 @@ int Send(_client* client, const char* buffer, int sz) {
 }
 
 
-char file_data[Chunk_Size];
-
-void SendFileThread(std::string fileName) {
-	FILE* file;
-	file = fopen(fileName, "rb");
-	size_t nbytes = 0;
-	Data data;
-	Data_File;
-	while ((nbytes = fread(file_data, , sizeof(char), Chunk_Size, file)) > 0) {
-		
-		Send()
-	}
-}
-
-void SendFile(std::string fileName) {
-
-}
-
 void BroadcastData(Data data) {
 	for (int i = 0;i < ClientMax;i++) {
 		if (!client[i]->con || !client[i]->clientInfo->authentication)continue;
@@ -73,8 +55,8 @@ void BroadcastData(Data data) {
 		//std::cout << client[i]->clientInfo->sid << std::endl;
 		std::string dataSerial;
 		dataSerial = DataSerialize(data);
-		int n = dataSerial.length();
-		Send(client[i], dataSerial.c_str(), n + 1);
+		dataSerial = DataSerialChunk(dataSerial);
+		Send(client[i], dataSerial.c_str(), Chunk_Size);
 	}
 }
 
@@ -83,8 +65,8 @@ void BroadcastData(std::string dataSerial) {
 		if (!client[i]->con || !client[i]->clientInfo->authentication)continue;
 		//puts("YES");
 		//std::cout << client[i]->clientInfo->sid << std::endl;
-		int n = dataSerial.length();
-		Send(client[i], dataSerial.c_str(), n + 1);
+		dataSerial = DataSerialChunk(dataSerial);
+		Send(client[i], dataSerial.c_str(), Chunk_Size);
 	}
 }
 
